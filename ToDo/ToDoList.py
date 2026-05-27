@@ -1,9 +1,9 @@
 import os
 
 def FileLen():
-    if not os.path.exists("ToDoList/List.txt"):
+    if not os.path.exists("List.txt"):
         return 0
-    with open("ToDoList/List.txt",) as f:
+    with open("List.txt",) as f:
         lines = f.readlines()
         i = 0
         for line in lines:
@@ -11,7 +11,7 @@ def FileLen():
         return i
 
 def CreateTask():
-    f = open("ToDoList/List.txt","at")
+    f = open("List.txt","at")
     print("<<<<Write>>>>")
     task = input(">>>")
     f.write(task+"\n")
@@ -30,10 +30,10 @@ def RemoveTask(length):
             print("Invalid entry.")
             pass
         if number <= length:
-            with open("ToDoList/List.txt") as fr:
+            with open("List.txt") as fr:
                 lines = fr.readlines()
                 i = 1
-                with open("ToDoList/List.txt", "w") as fw:
+                with open("List.txt", "w") as fw:
                     for line in lines:
                         if i != number:
                             fw.write(line)
@@ -58,10 +58,10 @@ def UpdateTask(length):
         if number <= length:
             print("Enter updated task: ")
             upTask = input(">>> ")
-            with open("ToDoList/List.txt") as fr:
+            with open("List.txt") as fr:
                 lines = fr.readlines()
                 i = 0
-                with open("ToDoList/List.txt", "w") as fw:
+                with open("List.txt", "w") as fw:
                     for line in lines:
                         i += 1
                         if i == number:
@@ -74,7 +74,7 @@ def UpdateTask(length):
             print("Index out of bound.")
 
 def ReadTask():
-    with open("ToDoList/List.txt") as f:
+    with open("List.txt") as f:
         for i, line in enumerate(f):
             print(str(i+1)+") "+line)
     f.close()
@@ -94,8 +94,8 @@ def main():
         print("7.Close.")
 
         choice = int(input("Enter your choice: "))
-        if not (os.path.exists("ToDoList/List.txt")):
-            with open("ToDoList/List.txt","w") as f:
+        if not (os.path.exists("List.txt")):
+            with open("List.txt","w") as f:
                 f.close()
         match choice:
             case 1:
@@ -123,7 +123,7 @@ def main():
                 print(length,"tasks remaining.")
 
             case 6:
-                os.remove("ToDoList/List.txt")
+                os.remove("List.txt")
             
             case 7:
                 break
