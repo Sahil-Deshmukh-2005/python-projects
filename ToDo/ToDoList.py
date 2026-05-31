@@ -1,14 +1,14 @@
 import os
 
 def FileLen():
-    if not os.path.exists("ToDoList/List.txt"):
+    if not os.path.exists("List.txt"):
         return 0
-    with open("ToDoList/List.txt",) as f:
+    with open("List.txt",) as f:
         lines = f.readlines()
         return len(lines)
 
 def CreateTask():
-    f = open("ToDoList/List.txt","at")
+    f = open("List.txt","at")
     print("<<<<Write>>>>")
     task = input(">>>")
     f.write(f"{task} []\n")
@@ -24,9 +24,9 @@ def CompleteTask(length):
     if task > length:
         print("Out of bound tasks.")
         return
-    with open("ToDoList/List.txt","r") as fr:
+    with open("List.txt","r") as fr:
         lines = fr.readlines()
-        with open("ToDoList/List.txt","w") as fw:
+        with open("List.txt","w") as fw:
             for line in lines:
                 task -= 1
                 if not task:    
@@ -55,10 +55,10 @@ def RemoveTask(length):
             return
         elif confirm.lower() == "y":
             if number <= length:
-                with open("ToDoList/List.txt") as fr:
+                with open("List.txt") as fr:
                     lines = fr.readlines()
                     i = 1
-                    with open("ToDoList/List.txt", "w") as fw:
+                    with open("List.txt", "w") as fw:
                         for line in lines:
                             if i != number:
                                 fw.write(line)
@@ -89,10 +89,10 @@ def UpdateTask(length):
             if number <= length:
                 print("Enter updated task: ")
                 upTask = input(">>> ")
-                with open("ToDoList/List.txt") as fr:
+                with open("List.txt") as fr:
                     lines = fr.readlines()
                     i = 0
-                    with open("ToDoList/List.txt", "w") as fw:
+                    with open("List.txt", "w") as fw:
                         for line in lines:
                             i += 1
                             if i == number:
@@ -107,14 +107,14 @@ def UpdateTask(length):
             print("Enter either Y for Yes or n for No.")
 
 def ReadTask():
-    with open("ToDoList/List.txt") as f:
+    with open("List.txt") as f:
         for i, line in enumerate(f):
             print(str(i+1)+") "+line)
     f.close()
 
 def CompletedTasks():
     count = 0
-    with open("ToDoList/List.txt", "r") as f:
+    with open("List.txt", "r") as f:
         lines = f.readlines()
         for line in lines:
             if line.endswith("[X]\n"):
@@ -128,7 +128,7 @@ def CompletedTasks():
 
 def RemainingTasks():
     count = 0
-    with open("ToDoList/List.txt", "r") as f:
+    with open("List.txt", "r") as f:
         lines = f.readlines()
         for line in lines:
             if line.endswith("[]\n"):
@@ -143,7 +143,7 @@ def RemainingTasks():
 def Search():
     target = input("Enter the word you wanna search: ")
     count = 0
-    with open("ToDoList/List.txt","r") as f:
+    with open("List.txt","r") as f:
         lines = f.readlines()
         for line in lines:
             if target.lower() in line.lower():
@@ -179,8 +179,8 @@ def main():
             print("Please enter the choice number!")
             continue
 
-        if not (os.path.exists("ToDoList/List.txt")):
-            with open("ToDoList/List.txt","w") as f:
+        if not (os.path.exists("List.txt")):
+            with open("List.txt","w") as f:
                 f.close()
         match choice:
             case 0:
@@ -231,7 +231,7 @@ def main():
                 else:
                     Search()
             case 9:
-                os.remove("ToDoList/List.txt")
+                os.remove("List.txt")
                 
 
 if __name__ == "__main__":
