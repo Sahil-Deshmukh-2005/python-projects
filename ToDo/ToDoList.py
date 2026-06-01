@@ -14,7 +14,7 @@ def CreateTask():
     f.write(f"{task} []\n")
     f.close()
 
-
+.
 def CompleteTask(length):
     try:
         task = int(input("Enter the task number (If you dont know Read Tasks first.): "))
