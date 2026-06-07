@@ -4,7 +4,7 @@ from pathlib import Path
 import os
 import shutil
 
-target_directory = Path("/home/sahil/Projects/File Organiser/Test Folder")
+target_directory = Path("Test Folder")
 
 file_type_dictionary = {
     "Images" : [".png",".jpg",".jpeg"],
@@ -48,8 +48,8 @@ def destination(item,directory):
 
     return error
 
-def count():
-    print("="*20 + "Counts" + "="*20)
+def statistics():
+    print("="*20 + "Statistics" + "="*20)
     print(f"Total Items Moved: {moved_count}")
     print(f"Total Error Occurred: {error_count}")
     print(f"Total Duplicates: {duplicate_count}")
@@ -72,7 +72,7 @@ def main():
         if item.is_file():
             file_type = item.suffix.lower()
             get_category(file_type,item)
-    count()
+    statistics()
     
 
 main()
