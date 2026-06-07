@@ -1,5 +1,3 @@
-# ./clear.sh
-
 from pathlib import Path
 import os
 import shutil
