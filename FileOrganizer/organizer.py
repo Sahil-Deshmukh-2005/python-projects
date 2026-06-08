@@ -1,8 +1,13 @@
+# ./clear.sh
+
 from pathlib import Path
 import os
 import shutil
 
-target_directory = Path("Test Folder")
+os.makedirs("File Organiser/Test Folder", exist_ok=True)
+
+path = input("Enter your interested path for organization from current directory (Press ENTER for current path): ")
+target_directory = Path(path)
 
 file_type_dictionary = {
     "Images" : [".png",".jpg",".jpeg"],
@@ -19,9 +24,7 @@ duplicate_count = 0
 
 def destination(item,directory):
     error = 0
-    global moved_count
-    global error_count
-    global duplicate_count
+    global moved_count, error_count, duplicate_count
     os.makedirs(target_directory / directory,exist_ok = True)
     if Path(target_directory / directory / item.name).exists():
         i = 1
@@ -33,7 +36,9 @@ def destination(item,directory):
             moved_count += 1
         except Exception as e:
             error = 1
-            print(f"Error: {e}")
+            with open("File Organiser/organizer.log","a") as f:
+                f.write(f"Error, {e}, occured while moving {item.name}.")
+                f.write("\n")
             error_count += 1
     else:
         try:
@@ -41,36 +46,65 @@ def destination(item,directory):
             moved_count += 1
         except Exception as e:
             error = 1
-            print(f"Error: {e}")
+            with open("File Organiser/organizer.log","a") as f:
+                f.write(f"Error, {e}, occured while moving {item.name}.")
+                f.write("\n")
             error_count += 1
 
     return error
 
-def statistics():
-    print("="*20 + "Statistics" + "="*20)
+def Statistics():
+    print("="*20 + " Statistical Data " + "="*20)
     print(f"Total Items Moved: {moved_count}")
     print(f"Total Error Occurred: {error_count}")
-    print(f"Total Duplicates: {duplicate_count}")
+    print(f"Total Duplicates In Moved Items: {duplicate_count}")
+    print("="*58)
 
-def get_category(file_type,item):
-    flag = 0
+def get_category(file_type):
     for directory, extensions in file_type_dictionary.items():
         if file_type in extensions:
-            flag = 1
-            error = destination(item,directory)
-            break
-    if not flag:
-        directory = "Others"
-        error = destination(item,directory)
-    if not error:
-        print(f"Moved : {item.name} ----> {directory}")
+            return directory
+         
+    return "Others"
+
+def read_log():
+    while True:
+        response = input("Do you wanna see the log file (Y/n): ")
+        if response.lower() == "y":
+            with open("File Organiser/organizer.log","r") as f:
+                lines = f.readlines()
+                for line in lines:
+                    print(line.strip())           
+                return
+        elif response.lower() == "n":
+            return
+        else:
+            print("Enter proper response.")
+
+def delete_log():
+    while True:
+        command = input("Do you wanna delete the log content (Y/n): ")
+        if command.lower() == "y":
+            os.remove("File Organiser/organizer.log")
+            return
+        elif command.lower() == "n":
+            return
+        else:
+            print("Enter proper command.")
 
 def main():
     for item in target_directory.iterdir():
         if item.is_file():
             file_type = item.suffix.lower()
-            get_category(file_type,item)
-    statistics()
+            directory = get_category(file_type)
+            error = destination(item,directory)
+            if not error:
+                with open("File Organiser/organizer.log","a") as f:
+                    f.write(f"Moved : {item.name} ----> {directory}")
+                    f.write("\n")
+    Statistics()
+    read_log()
+    delete_log()
     
 
 main()
