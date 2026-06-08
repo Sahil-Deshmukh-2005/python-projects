@@ -1,10 +1,8 @@
-# ./clear.sh
-
 from pathlib import Path
 import os
 import shutil
 
-os.makedirs("File Organiser/Test Folder", exist_ok=True)
+os.makedirs("Test Folder", exist_ok=True)
 
 path = input("Enter your interested path for organization from current directory (Press ENTER for current path): ")
 target_directory = Path(path)
@@ -36,7 +34,7 @@ def destination(item,directory):
             moved_count += 1
         except Exception as e:
             error = 1
-            with open("File Organiser/organizer.log","a") as f:
+            with open("organizer.log","a") as f:
                 f.write(f"Error, {e}, occured while moving {item.name}.")
                 f.write("\n")
             error_count += 1
@@ -46,7 +44,7 @@ def destination(item,directory):
             moved_count += 1
         except Exception as e:
             error = 1
-            with open("File Organiser/organizer.log","a") as f:
+            with open("organizer.log","a") as f:
                 f.write(f"Error, {e}, occured while moving {item.name}.")
                 f.write("\n")
             error_count += 1
@@ -71,7 +69,7 @@ def read_log():
     while True:
         response = input("Do you wanna see the log file (Y/n): ")
         if response.lower() == "y":
-            with open("File Organiser/organizer.log","r") as f:
+            with open("organizer.log","r") as f:
                 lines = f.readlines()
                 for line in lines:
                     print(line.strip())           
@@ -85,7 +83,7 @@ def delete_log():
     while True:
         command = input("Do you wanna delete the log content (Y/n): ")
         if command.lower() == "y":
-            os.remove("File Organiser/organizer.log")
+            os.remove("organizer.log")
             return
         elif command.lower() == "n":
             return
@@ -103,11 +101,11 @@ def main():
             directory = get_category(file_type)
             error = destination(item,directory)
             if not error:
-                with open("File Organiser/organizer.log","a") as f:
+                with open("organizer.log","a") as f:
                     f.write(f"Moved : {item.name} ----> {directory}")
                     f.write("\n")
     statistics()
-    if Path("File Organiser/organizer.log").exists():
+    if Path("organizer.log").exists():
         read_log()
         delete_log()
     
