@@ -9,7 +9,7 @@ target_directory = Path(path)
 
 file_type_dictionary = {
     "Images" : [".png",".jpg",".jpeg"],
-    "Documents" : [".pdf", ".docx", ".doc", ".txt"],
+    "Documents" : [".pdf", ".docx", ".doc", ".txt", ".odt"],
     "Videos" : [".mp4", ".mkv"],
     "Audio" : [".mp3", ".wav"],
     "Archives" : [".zip", ".rar"],
