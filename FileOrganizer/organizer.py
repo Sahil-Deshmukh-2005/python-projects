@@ -12,7 +12,7 @@ file_type_dictionary = {
     "Documents" : [".pdf", ".docx", ".doc", ".txt", ".odt"],
     "Videos" : [".mp4", ".mkv"],
     "Audio" : [".mp3", ".wav"],
-    "Archives" : [".zip", ".rar"],
+    "Archives" : [".zip", ".rar", ".tar", ".apk"],
     "Codes" : [".py",".ipynb", ".java", ".c", ".js", ".html", ".css"]
 }
 
